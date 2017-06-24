@@ -49,10 +49,10 @@ worker(Parent, N, 0) ->
     Parent ! {self(), N, done};
 
 worker(Parent, N, NumOps) ->
-    random:seed(os:timestamp()),
+    seed(),
     StrN = integer_to_list(N),
     StrOp = integer_to_list(NumOps),
-    case random:uniform(100) of
+    case uniform(100) of
         R when R > 0, R =< 24 ->
             Key = iolist_to_binary([StrN, ":", StrOp, ":STRING"]),
             Val = iolist_to_binary(["STRING:", StrN, ":", StrOp]),
@@ -104,3 +104,11 @@ worker(Parent, N, NumOps) ->
     end,
     worker(Parent, N, NumOps-1).
 
+-ifdef(HAVE_rand).
+seed() -> undefined.
+uniform(N) -> rand:uniform(N).
+-else.
+seed() -> random:seed(os:timestamp()).
+uniform(N) -> random:uniform(N).
+-endif.
+-compile({inline, [seed/0, uniform/1]}).
