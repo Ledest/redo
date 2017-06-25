@@ -7,4 +7,5 @@ otp_release:
   - 18.3
   - 17.5
   - R16B03-1
-script: "rebar compile && redis-server & rebar eunit && rc=0 || rc=1; kill %1; exit $rc"
+services:
+  - redis-server
