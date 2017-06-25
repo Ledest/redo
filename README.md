@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/Ledest/redo.png)](http://travis-ci.org/Ledest/redo)
+
 ### Philosophy
 
 > If you wish to write a redis client from scratch, you must first invent the universe.
