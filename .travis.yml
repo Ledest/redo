@@ -10,3 +10,4 @@ otp_release:
   - R15B03
 services:
   - redis-server
+script: "rebar compile && rebar eunit -v"
